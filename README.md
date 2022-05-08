@@ -7,6 +7,12 @@
 <br />
 <hr>
 
+# Installation
+```bash
+npm install cron-expression-generator
+pnpm install cron-expression-generator
+```
+
 # Usage
 
 ```ts
