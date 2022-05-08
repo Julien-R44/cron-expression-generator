@@ -1,18 +1,23 @@
 {
-  "name": "starter-ts",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "homepage": "https://github.com/Julien-R44/[name]#readme",
+  "name": "cron-expression-generator",
+  "version": "0.0.1",
+  "description": "Generate crontab expression using friendly and declarative API",
+  "keywords": [
+    "cron",
+    "cron-expression-generator",
+    "crontab",
+    "cron generation"
+  ],
+  "homepage": "https://github.com/Julien-R44/cron-expression-generator#readme",
   "bugs": {
-    "url": "https://github.com/Julien-R44/[name]/issues"
+    "url": "https://github.com/Julien-R44/cron-expression-generator/issues"
   },
   "packageManager": "pnpm@6.32.9",
   "license": "MIT",
   "author": "Julien Ripouteau <julien@ripouteau.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Julien-R44/[name].git"
+    "url": "git+https://github.com/Julien-R44/cron-expression-generator.git"
   },
   "funding": "https://github.com/sponsors/Julien-R44",
   "main": "./dist/index.cjs",
