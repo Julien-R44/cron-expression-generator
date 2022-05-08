@@ -1,9 +1,7 @@
 import { test } from '@japa/runner'
-import { CronExpressionGenerator } from '../src'
+import { cron as c } from '../src'
 
 test.group('Cron expression generator', () => {
-  const c = () => new CronExpressionGenerator()
-
   test('empty', ({ assert }) => assert.deepEqual(c().get(), '* * * * *'))
 
   test('minutes', ({ assert }) => {
