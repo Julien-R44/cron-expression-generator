@@ -95,5 +95,12 @@
     "bracketSpacing": true,
     "arrowParens": "always",
     "printWidth": 100
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "openapi-types"
+      ]
+    }
   }
 }
