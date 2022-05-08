@@ -12,13 +12,13 @@ export class CronExpressionGenerator {
   /**
    * The cron expression
    */
-  private cronExpression = '* * * * *'
+  private expression = '* * * * *'
 
   /**
    * Insert the given value into the given position
    */
   private spliceIntoPosition(position: number, value: string) {
-    const segments = this.cronExpression.split(' ')
+    const segments = this.expression.split(' ')
     segments[position] = value
     return this.cron(segments.join(' '))
   }
@@ -27,14 +27,14 @@ export class CronExpressionGenerator {
    * Returns the built cron expression
    */
   public get() {
-    return this.cronExpression
+    return this.expression
   }
 
   /**
    * Schedule with a custom cron expression
    */
   private cron(expression: string) {
-    this.cronExpression = expression
+    this.expression = expression
     return this
   }
 
@@ -148,7 +148,7 @@ export class CronExpressionGenerator {
    * Schedule to run only on weekdays
    */
   public weekdays() {
-    return this.days(`${Day.Monday}-${Day.Sunday}`)
+    return this.days(`${Day.Monday}-${Day.Friday}`)
   }
 
   /**
@@ -215,29 +215,7 @@ export class CronExpressionGenerator {
   }
 
   /**
-   * Schedule to run every day
-   */
-  public everyDay() {
-    return this.spliceIntoPosition(2, '*')
-  }
-
-  /**
-   * Schedule to run every month
-   */
-  public everyMonth() {
-    return this.spliceIntoPosition(3, '*')
-  }
-
-  /**
-   * Schedule to run every year
-   */
-  public everyYear() {
-    return this.spliceIntoPosition(5, '*')
-  }
-
-  /**
    * Schedule at the given time
-   * Format is `HH:MM`
    */
   public at(time: string) {
     return this.dailyAt(time)
@@ -253,5 +231,55 @@ export class CronExpressionGenerator {
     const minute = (+segments[1]).toString() || '0'
 
     return this.spliceIntoPosition(1, hour).spliceIntoPosition(0, minute)
+  }
+
+  /**
+   * Schedule to run weekly on q given day and time
+   */
+  public weeklyOn(day: Day, time: string) {
+    return this.dailyAt(time).days(day)
+  }
+
+  /**
+   * Schedule to run monthly
+   */
+  public monthly() {
+    return this.spliceIntoPosition(0, '0').spliceIntoPosition(1, '0').spliceIntoPosition(2, '1')
+  }
+
+  /**
+   * Schedule to run monthly on the given day and time
+   */
+  public monthlyOn(day: Day, time: string) {
+    return this.dailyAt(time).spliceIntoPosition(2, day.toString())
+  }
+
+  /**
+   * Schedule to run quarterly
+   */
+  public quarterly() {
+    return this.spliceIntoPosition(0, '0')
+      .spliceIntoPosition(1, '0')
+      .spliceIntoPosition(2, '1')
+      .spliceIntoPosition(3, '1-12/3')
+  }
+
+  /**
+   * Schedule to run yearly.
+   */
+  public yearly() {
+    return this.spliceIntoPosition(0, '0')
+      .spliceIntoPosition(1, '0')
+      .spliceIntoPosition(2, '1')
+      .spliceIntoPosition(3, '1')
+  }
+
+  /**
+   * Schedule to run yearly on the given day and time
+   */
+  public yearlyOn(month = 1, dayOfMonth: string | number = 1, time = '00:00') {
+    return this.dailyAt(time)
+      .spliceIntoPosition(2, dayOfMonth.toString())
+      .spliceIntoPosition(3, month.toString())
   }
 }
